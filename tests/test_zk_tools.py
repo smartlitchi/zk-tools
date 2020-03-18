@@ -28,7 +28,7 @@ def test_zk_slugify():
     z_list = os.listdir(zk_archive)
     assert '198707052100-hello-world.rst' in z_list
 
-def test_change_link():
+def test_find_good_link():
     z_id = z_filename.split('.')[0]
-    z_link = zk_tools.change_link(z_id, zk_archive)
+    z_link = zk_tools.find_good_link(z_id, zk_archive)
     assert z_link == '198707052100-hello-world.rst'
