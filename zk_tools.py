@@ -51,7 +51,7 @@ def get_files_to_slug(zk_archive):
             z_files.append(z_filename)
     return z_files
 
-def change_link(z_id, zk_archive):
+def find_good_link(z_id, zk_archive):
     '''
     Find the path of the zettel beginning with the specified id
 
