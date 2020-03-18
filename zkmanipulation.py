@@ -17,11 +17,22 @@ def gen_slug(filename, title):
     z_new_filename = z_id + '-' + z_title_slug + '.rst'
     return z_new_filename
 
-def zk_slugify(zk_archive):
+def git_cmd(cmd, zk_archive):
+    print(cmd)
+    return subprocess.run(cmd.split(), cwd=zk_archive)
+
+def get_files_to_slug(zk_archive):
+    z_files = list()
     for z_filename in os.listdir(zk_archive):
         if '.rst' in z_filename and len(z_filename.split('.')[0]) == 12:
-            z_title = get_title(zk_archive, z_filename)
-            z_new_filename = gen_slug(z_filename, z_title)
-            git_cmd = 'git mv {} {}'.format(z_filename, z_new_filename)
-            subprocess.run(git_cmd.split(), cwd=zk_archive)
-            print('{} created'.format(z_new_filename))
+            z_files.append(z_filename)
+    return z_files
+
+def zk_slugify(zk_archive):
+    z_files = get_files_to_slug(zk_archive)
+    for z_filename in z_files:
+        z_title = get_title(zk_archive, z_filename)
+        z_new_filename = gen_slug(z_filename, z_title)
+        git_mv = 'git mv {} {}'.format(z_filename, z_new_filename)
+        git_cmd(git_mv, zk_archive)
+        print('{} created'.format(z_new_filename))
