@@ -32,3 +32,10 @@ def test_find_good_link():
     z_id = z_filename.split('.')[0]
     z_link = zk_tools.find_good_link(z_id, zk_archive)
     assert z_link == '198707052100-hello-world.rst'
+
+def test_gather_links():
+    z_id = z_filename.split('.')[0]
+    z_slugified = zk_tools.find_good_link(z_id, zk_archive)
+    z_links = zk_tools.gather_links(z_slugified, zk_archive)
+    assert len(z_links) == 2
+    assert z_links == ['202003191044.rst', '199110141020.rst']
