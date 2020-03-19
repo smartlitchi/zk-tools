@@ -37,7 +37,6 @@ def git_cmd(cmd, zk_archive):
     cmd -- str, git command
     zk_archive -- str, path of the zettelkasten
     '''
-    print(cmd)
     return subprocess.run(cmd.split(), cwd=zk_archive)
 
 def get_all_zettels(zk_archive):
@@ -75,7 +74,11 @@ def gather_links(z_filename, zk_archive):
         z_content = z.read()
     regex_links = "\[\[(.*?)\]\]"
     z_links = re.findall(regex_links, z_content)
-    return z_links
+    without_sources = list()
+    for link in z_links:
+        if 'sources/' not in link:
+            without_sources.append(link)
+    return without_sources
 
 def find_good_link(z_id, zk_archive):
     '''
@@ -120,7 +123,6 @@ def zk_slugify(zk_archive):
         z_new_filename = gen_slug(z_filename, z_title)
         git_mv = 'git mv {} {}'.format(z_filename, z_new_filename)
         git_cmd(git_mv, zk_archive)
-        print('{} created'.format(z_new_filename))
 
 def zk_change_all_links(zk_archive):
     '''
@@ -130,10 +132,14 @@ def zk_change_all_links(zk_archive):
     '''
     zettels = get_all_zettels(zk_archive)
     for zettel in zettels:
-        change_links(zettel, zk_archive)
-
+        z_links = gather_links(zettel, zk_archive)
+        if gather_links(zettel, zk_archive) != []:
+            try:
+                change_links(zettel, zk_archive)
+            except TypeError:
+                print(zettel)
 
 if __name__ == "__main__":
-    zk_archive = 'tests/sources/'
-    z_filename = '198707052100.rst'
+    #zk_archive = 'tests/sources/'
+    zk_slugify(zk_archive)
     zk_change_all_links(zk_archive)
