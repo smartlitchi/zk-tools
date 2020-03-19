@@ -18,6 +18,11 @@ def test_git_cmd():
     git_process = zk_tools.git_cmd(cmd, zk_archive)
     assert git_process.returncode == 0
 
+def test_get_all_zettels():
+    z_files = zk_tools.get_all_zettels(zk_archive)
+    assert len(z_files) == 3
+    assert z_files == ['198707052100.rst', '202003191044-coronavirus-is-live.rst', '199110141020-happy-birthday.rst']
+
 def test_get_files_to_slug():
     z_files = zk_tools.get_files_to_slug(zk_archive)
     assert len(z_files) == 1
@@ -45,6 +50,15 @@ def test_change_links():
     z_slugified = zk_tools.find_good_link(z_id, zk_archive)
     zk_tools.change_links(z_slugified, zk_archive)
     z_lines = ['Hello world !', '=============', '', '[[202003191044-coronavirus-is-live.rst]]', '[[199110141020-happy-birthday.rst]]']
+    with open(zk_archive + z_slugified, 'r') as z:
+        z_content = z.readlines()
+    for index, line in enumerate(z_content):
+        assert line.rstrip() == z_lines[index]
+
+def test_zk_change_all_links():
+    zk_tools.zk_change_all_links(zk_archive)
+    z_slugified = '202003191044-coronavirus-is-live.rst'
+    z_lines = ['Coronavirus is live', '===================', '', '[[199110141020-happy-birthday.rst]]']
     with open(zk_archive + z_slugified, 'r') as z:
         z_content = z.readlines()
     for index, line in enumerate(z_content):
