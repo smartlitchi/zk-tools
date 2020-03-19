@@ -1,6 +1,7 @@
 import os
 from slugify import slugify
 import subprocess
+import re
 
 zk_archive = os.path.expanduser("~/Documents/zettelkasten/")
 # don't forget trailing slash
@@ -51,6 +52,20 @@ def get_files_to_slug(zk_archive):
             z_files.append(z_filename)
     return z_files
 
+def gather_links(z_filename, zk_archive):
+    '''
+    Retrieve all the links inside a zettel
+
+    z_filename -- str, name of the zettel
+    zk_archive -- str, path of the zettelkasten
+    '''
+    with open(zk_archive + z_filename, 'r') as z:
+        z_content = z.read()
+    regex_links = "\[\[(.*?)\]\]"
+    print(regex_links)
+    z_links = re.findall(regex_links, z_content)
+    return z_links
+
 def find_good_link(z_id, zk_archive):
     '''
     Find the path of the zettel beginning with the specified id
@@ -68,6 +83,8 @@ def zk_slugify(zk_archive):
 
     zk_archive -- str, path of the zettelkasten
     '''
+    git_add = 'git add *.rst'
+    git_cmd(git_add, zk_archive)
     z_files = get_files_to_slug(zk_archive)
     for z_filename in z_files:
         z_title = get_title(zk_archive, z_filename)
@@ -75,3 +92,7 @@ def zk_slugify(zk_archive):
         git_mv = 'git mv {} {}'.format(z_filename, z_new_filename)
         git_cmd(git_mv, zk_archive)
         print('{} created'.format(z_new_filename))
+
+if __name__ == "__main__":
+    zk_archive = 'tests/sources/'
+    print(gather_links('198707052100.rst', zk_archive))
