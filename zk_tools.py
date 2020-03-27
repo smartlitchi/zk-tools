@@ -107,7 +107,7 @@ def change_links(z_filename, zk_archive):
     for index, link in enumerate(z_links):
         z_content = z_content.replace(link, z_new_links[index])
     with open(zk_archive + z_filename, 'w') as z:
-        z.write(z_content.rstrip())
+        z.write(z_content)
 
 def zk_slugify(zk_archive):
     '''
@@ -133,7 +133,7 @@ def zk_change_all_links(zk_archive):
     zettels = get_all_zettels(zk_archive)
     for zettel in zettels:
         z_links = gather_links(zettel, zk_archive)
-        if gather_links(zettel, zk_archive) != []:
+        if z_links != []:
             try:
                 change_links(zettel, zk_archive)
             except TypeError:
