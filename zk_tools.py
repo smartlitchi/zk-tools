@@ -138,6 +138,7 @@ def zk_change_all_links(zk_archive):
                 change_links(zettel, zk_archive)
             except TypeError:
                 print("Problem of link in {}".format(zettel))
+                print(z_links)
 
 if __name__ == "__main__":
     #zk_archive = 'tests/sources/'
