@@ -4,3 +4,9 @@ Hello world !
 [[202003191044.rst]]
 [[199110141020.rst]]
 [[sources/202003191513.pdf]]
+
+Here is a bash script that SHOULD NOT trigger a zettel link::
+    
+    if [[ -z $test ]]; then
+        echo "Tadaaa"
+    fi
