@@ -50,7 +50,7 @@ def test_change_links():
     z_id = z_filename.split('.')[0]
     z_slugified = zk_tools.find_good_link(z_id, zk_archive)
     zk_tools.change_links(z_slugified, zk_archive)
-    z_lines = ['Hello world !', '=============', '', '[[202003191044-coronavirus-is-live.rst]]', '[[199110141020-happy-birthday.rst]]', '[[sources/202003191513.pdf]]']
+    z_lines = ['Hello world !', '=============', '', '[[202003191044-coronavirus-is-live.rst]]', '[[199110141020-happy-birthday.rst]]', '[[sources/202003191513.pdf]]', '[[ -z $test ]]']
     with open(zk_archive + z_slugified, 'r') as z:
         z_content = z.readlines()
     for index, line in enumerate(z_content):
