@@ -25,7 +25,7 @@ def gen_slug(filename, title):
     filename -- str, old filename
     title -- str, first line of the zettel
     '''
-    z_id = filename.split('.')[0]
+    z_id = filename[:12]  # 12 is the length of my timestamp
     z_title_slug = slugify(title)
     z_new_filename = z_id + '-' + z_title_slug + '.rst'
     return z_new_filename
@@ -117,12 +117,13 @@ def zk_slugify(zk_archive):
     '''
     git_add = 'git add *.rst'
     git_cmd(git_add, zk_archive)
-    z_files = get_files_to_slug(zk_archive)
+    z_files = get_all_zettels(zk_archive)
     for z_filename in z_files:
         z_title = get_title(zk_archive, z_filename)
         z_new_filename = gen_slug(z_filename, z_title)
-        git_mv = 'git mv {} {}'.format(z_filename, z_new_filename)
-        git_cmd(git_mv, zk_archive)
+        if z_new_filename != z_filename:
+            git_mv = 'git mv {} {}'.format(z_filename, z_new_filename)
+            git_cmd(git_mv, zk_archive)
 
 def zk_change_all_links(zk_archive):
     '''
