@@ -43,15 +43,15 @@ def test_gather_links():
     z_id = z_filename.split('.')[0]
     z_slugified = zk_tools.find_good_link(z_id, zk_archive)
     z_links = zk_tools.gather_links(z_slugified, zk_archive)
-    assert len(z_links) == 2
-    assert z_links == ['202003191044.rst', '199110141020.rst']
+    assert len(z_links) == 3
+    assert z_links == ['202003191044.rst', '199110141020.rst', '202004301451-name-is-not-good.rst']
     assert 'sources/202003191513.pdf' not in z_links
 
 def test_change_links():
     z_id = z_filename.split('.')[0]
     z_slugified = zk_tools.find_good_link(z_id, zk_archive)
     zk_tools.change_links(z_slugified, zk_archive)
-    z_lines = ['Hello world !', '=============', '', '[[202003191044-coronavirus-is-live.rst]]', '[[199110141020-happy-birthday.rst]]', '[[sources/202003191513.pdf]]', '[[ -z $test ]]']
+    z_lines = ['Hello world !', '=============', '', '[[202003191044-coronavirus-is-live.rst]]', '[[199110141020-happy-birthday.rst]]', '[[sources/202003191513.pdf]]', '[[ -z $test ]]', '[[202004301451-this-is-the-good-title.rst]]']
     with open(zk_archive + z_slugified, 'r') as z:
         z_content = z.readlines()
     for index, line in enumerate(z_content):
