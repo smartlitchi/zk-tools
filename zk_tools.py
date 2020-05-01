@@ -98,14 +98,11 @@ def change_links(z_filename, zk_archive):
     zk_archive -- str, path of the zettelkasten
     '''
     z_links = gather_links(z_filename, zk_archive)
-    z_new_links = list()
-    for link in z_links:
-        z_new_link = find_good_link(link[:12], zk_archive)
-        z_new_links.append(z_new_link)
     with open(zk_archive + z_filename, 'r') as z:
         z_content = z.read()
-    for index, link in enumerate(z_links):
-        z_content = z_content.replace(link, z_new_links[index])
+    for link in z_links:
+        z_new_link = find_good_link(link[:12], zk_archive)
+        z_content = z_content.replace(link, z_new_link)
     with open(zk_archive + z_filename, 'w') as z:
         z.write(z_content)
 
