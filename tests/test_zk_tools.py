@@ -23,11 +23,6 @@ def test_get_all_zettels():
     assert len(z_files) == 4
     assert z_files == ['198707052100.rst', '202003191044-coronavirus-is-live.rst', '202004301451-name-is-not-good.rst', '199110141020-happy-birthday.rst']
 
-def test_get_files_to_slug():
-    z_files = zk_tools.get_files_to_slug(zk_archive)
-    assert len(z_files) == 1
-    assert z_files[-1] == z_filename
-
 def test_zk_slugify():
     zk_tools.zk_slugify(zk_archive)
     z_list = os.listdir(zk_archive)
