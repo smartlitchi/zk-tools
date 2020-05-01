@@ -51,18 +51,6 @@ def get_all_zettels(zk_archive):
             z_files.append(z_filename)
     return z_files
 
-def get_files_to_slug(zk_archive):
-    '''
-    Return a list of all files that need to be slugified
-
-    zk_archive -- str, path of the zettelkasten
-    '''
-    z_files = list()
-    for z_filename in get_all_zettels(zk_archive):
-        if len(z_filename.split('.')[0]) == 12:
-            z_files.append(z_filename)
-    return z_files
-
 def gather_links(z_filename, zk_archive):
     '''
     Retrieve all the links inside a zettel
