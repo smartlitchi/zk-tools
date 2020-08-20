@@ -20,8 +20,8 @@ def test_git_cmd():
 
 def test_get_all_zettels():
     z_files = zk_tools.get_all_zettels(zk_archive)
-    assert len(z_files) == 4
-    assert z_files == ['198707052100.rst', '202003191044-coronavirus-is-live.rst', '202004301451-name-is-not-good.rst', '199110141020-happy-birthday.rst']
+    assert len(z_files) == 5
+    assert z_files == ['198707052100.rst', '202003191044-coronavirus-is-live.rst', '202008200807-good-link.rst', '202004301451-name-is-not-good.rst', '199110141020-happy-birthday.rst']
 
 def test_zk_slugify():
     zk_tools.zk_slugify(zk_archive)
@@ -38,8 +38,8 @@ def test_gather_links():
     z_id = z_filename.split('.')[0]
     z_slugified = zk_tools.find_good_link(z_id, zk_archive)
     z_links = zk_tools.gather_links(z_slugified, zk_archive)
-    assert len(z_links) == 3
-    assert z_links == ['202003191044.rst', '199110141020.rst', '202004301451-name-is-not-good.rst']
+    assert len(z_links) == 4
+    assert z_links == ['202003191044.rst', '199110141020.rst', '202004301451-name-is-not-good.rst', '20200820-good-link.rst']
     assert 'sources/202003191513.pdf' not in z_links
 
 def test_change_links():
