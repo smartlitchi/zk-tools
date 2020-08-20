@@ -5,4 +5,4 @@ Hello world !
 [[199110141020.rst]]
 [[sources/202003191513.pdf]]
 [[ -z $test ]]
-[[202004301451-name-is-not-good.rst]] text between links [[2008200807-good-link.rst]]
+[[202004301451-name-is-not-good.rst]] text between links [[202008200807-good-link.rst]]
