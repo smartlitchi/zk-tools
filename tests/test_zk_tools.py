@@ -39,7 +39,7 @@ def test_gather_links():
     z_slugified = zk_tools.find_good_link(z_id, zk_archive)
     z_links = zk_tools.gather_links(z_slugified, zk_archive)
     assert len(z_links) == 4
-    assert z_links == ['202003191044.rst', '199110141020.rst', '202004301451-name-is-not-good.rst', '20200820-good-link.rst']
+    assert z_links == ['202003191044.rst', '199110141020.rst', '202004301451-name-is-not-good.rst', '202008200807-good-link.rst']
     assert 'sources/202003191513.pdf' not in z_links
 
 def test_change_links():
