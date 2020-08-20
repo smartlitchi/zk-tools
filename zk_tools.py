@@ -60,7 +60,7 @@ def gather_links(z_filename, zk_archive):
     '''
     with open(zk_archive + z_filename, 'r') as z:
         z_content = z.read()
-    regex_links = r"\[\[([0-9]{12}.*)\]\]"
+    regex_links = r"\[\[([0-9]{12}.*?\.rst)\]\]"
     z_links = re.findall(regex_links, z_content)
     without_sources = list()
     for link in z_links:
