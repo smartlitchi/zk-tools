@@ -60,3 +60,9 @@ def test_zk_change_all_links():
         z_content = z.readlines()
     for index, line in enumerate(z_content):
         assert line.rstrip() == z_lines[index]
+
+def test_find_orphans():
+    zk_tools.zk_change_all_links(zk_archive)
+    orphans = zk_tools.zk_find_orphans(zk_archive)
+    assert len(orphans) == 1
+    assert orphans == ['198707052100-hello-world.rst']
