@@ -29,14 +29,14 @@ def test_zk_slugify():
     assert '198707052100-hello-world.rst' in z_list
     assert '202004301451-this-is-the-good-title.rst' in z_list
 
-def test_find_good_link():
+def test_find_filename():
     z_id = z_filename.split('.')[0]
-    z_link = zk_tools.find_good_link(z_id, zk_archive)
+    z_link = zk_tools.find_filename(z_id, zk_archive)
     assert z_link == '198707052100-hello-world.rst'
 
 def test_gather_links():
     z_id = z_filename.split('.')[0]
-    z_slugified = zk_tools.find_good_link(z_id, zk_archive)
+    z_slugified = zk_tools.find_filename(z_id, zk_archive)
     z_links = zk_tools.gather_links(z_slugified, zk_archive)
     assert len(z_links) == 4
     assert z_links == ['202003191044.rst', '199110141020.rst', '202004301451-name-is-not-good.rst', '202008200807-good-link.rst']
@@ -44,7 +44,7 @@ def test_gather_links():
 
 def test_change_links():
     z_id = z_filename.split('.')[0]
-    z_slugified = zk_tools.find_good_link(z_id, zk_archive)
+    z_slugified = zk_tools.find_filename(z_id, zk_archive)
     zk_tools.change_links(z_slugified, zk_archive)
     z_lines = ['Hello world !', '=============', '', '[[202003191044-coronavirus-is-live.rst]]', '[[199110141020-happy-birthday.rst]]', '[[sources/202003191513.pdf]]', '[[ -z $test ]]', '[[202004301451-this-is-the-good-title.rst]] text between links [[202008200807-good-link.rst]]']
     with open(zk_archive + z_slugified, 'r') as z:
