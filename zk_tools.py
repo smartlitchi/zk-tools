@@ -126,6 +126,25 @@ def zk_change_all_links(zk_archive):
                 print("Problem of link in {}".format(zettel))
                 print(z_links)
 
+def zk_find_orphans(zk_archive):
+    '''
+    Find zettels that don't have any links to them
+
+    zk_archive -- str, path of the zettelkasten
+    '''
+    zettels = get_all_zettels(zk_archive)
+    linked_zettels = list()
+    for zettel in zettels:
+        links = gather_links(zettel, zk_archive)
+        for link in links:
+            if link not in linked_zettels:
+                linked_zettels.append(link)
+    not_linked = list()
+    for zettel in zettels:
+        if zettel not in linked_zettels:
+            not_linked.append(zettel)
+    return not_linked
+
 if __name__ == "__main__":
     #zk_archive = 'tests/sources/'
     zk_slugify(zk_archive)
