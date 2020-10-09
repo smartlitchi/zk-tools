@@ -68,9 +68,9 @@ def gather_links(z_filename, zk_archive):
             without_sources.append(link)
     return without_sources
 
-def find_good_link(z_id, zk_archive):
+def find_filename(z_id, zk_archive):
     '''
-    Find the path of the zettel beginning with the specified id
+    Find the filename of the zettel beginning with the specified id.
 
     z_id -- str, former unique ID of the zettel, like 198707052100
     '''
@@ -89,7 +89,7 @@ def change_links(z_filename, zk_archive):
     with open(zk_archive + z_filename, 'r') as z:
         z_content = z.read()
     for link in z_links:
-        z_new_link = find_good_link(link[:12], zk_archive)
+        z_new_link = find_filename(link[:12], zk_archive)  # this works because it presumes all the filenames have been checked with zk_slugify
         z_content = z_content.replace(link, z_new_link)
     with open(zk_archive + z_filename, 'w') as z:
         z.write(z_content)
