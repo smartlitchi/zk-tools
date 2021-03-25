@@ -100,8 +100,8 @@ def zk_slugify(zk_archive):
 
     zk_archive -- str, path of the zettelkasten
     '''
-    git_add = 'git add *.rst'
-    git_cmd(git_add, zk_archive)
+    #git_add = 'git add *.rst'
+    #git_cmd(git_add, zk_archive)
     z_files = get_all_zettels(zk_archive)
     for z_filename in z_files:
         z_title = get_title(zk_archive, z_filename)
